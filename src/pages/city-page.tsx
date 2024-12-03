@@ -8,7 +8,7 @@ import { WeatherDetails } from "../components/weather-details";
 import { WeatherForecast } from "../components/weather-forecast";
 import WeatherSkeleton from "../components/loading-skeleton";
 import { FavoriteButton } from "@/components/favorite-button";
-
+import { Helmet } from "react-helmet";
 export function CityPage() {
   const [searchParams] = useSearchParams();
   const params = useParams();
@@ -37,6 +37,7 @@ export function CityPage() {
 
   return (
     <div className="space-y-6">
+      <Helmet><title>{`KLIMATE - ${params.cityName}`}</title></Helmet>
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">
           {params.cityName}, {weatherQuery.data.sys.country}

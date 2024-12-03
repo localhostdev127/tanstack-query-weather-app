@@ -13,6 +13,7 @@ import { WeatherForecast } from "../components/weather-forecast";
 import { HourlyTemperature } from "../components/hourly-temprature";
 import WeatherSkeleton from "../components/loading-skeleton";
 import { FavoriteCities } from "@/components/favorite-cities";
+import { Helmet } from "react-helmet";
 
 export function WeatherDashboard() {
   const {
@@ -96,6 +97,9 @@ export function WeatherDashboard() {
 
   return (
     <div className="space-y-4">
+      <Helmet>
+        <title>{`KLIMATE - ${locationName?.name}`}</title>
+      </Helmet>
       <FavoriteCities />
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
