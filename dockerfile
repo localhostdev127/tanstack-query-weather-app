@@ -13,9 +13,7 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Pass build-time environment variables
-ARG WEATHER_API_KEY
-ENV VITE_OPENWEATHER_API_KEY=${WEATHER_API_KEY}
+
 
 # Build the app
 RUN npm run build

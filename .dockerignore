@@ -8,9 +8,6 @@ pnpm-debug.log
 dist
 build
 
-# Local environment files
-.env
-.env.*.local
 
 # Editor and IDE files
 .vscode
