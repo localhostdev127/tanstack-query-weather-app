@@ -6,7 +6,8 @@ import { Layout } from "./components/layout";
 import { ThemeProvider } from "./context/theme-provider";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CityPage } from "./pages/city-page";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -30,6 +31,7 @@ function App() {
             </Routes>
           </Layout>
           <Toaster richColors />
+          <ToastContainer/>
         </ThemeProvider>
       </BrowserRouter>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}

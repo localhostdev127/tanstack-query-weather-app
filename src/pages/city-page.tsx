@@ -16,7 +16,6 @@ export function CityPage() {
   const lon = parseFloat(searchParams.get("lon") || "0");
 
   const coordinates = { lat, lon };
-
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
 
@@ -37,7 +36,7 @@ export function CityPage() {
 
   return (
     <div className="space-y-6">
-      <Helmet><title>{`KLIMATE - ${params.cityName}`}</title></Helmet>
+      <Helmet><title>{`KLIMATE - ${params.cityName ? params.cityName:'your requested location'}`}</title></Helmet>
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">
           {params.cityName}, {weatherQuery.data.sys.country}

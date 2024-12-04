@@ -22,7 +22,6 @@ export function WeatherDashboard() {
     isLoading: locationLoading,
     getLocation,
   } = useGeolocation();
-
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
   const locationQuery = useReverseGeocodeQuery(coordinates);

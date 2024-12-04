@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 import type { Coordinates } from "@/api/types";
+import { Bounce, toast } from "react-toastify";
 
 interface GeolocationState {
   coordinates: Coordinates | null;
   error: string | null;
   isLoading: boolean;
+}
+
+// default location for permision denied
+const fallbackcords = {
+  "lat": 22.5414185,
+  "lon": 88.35769124388872
 }
 
 export function useGeolocation() {
@@ -39,7 +46,6 @@ export function useGeolocation() {
       },
       (error) => {
         let errorMessage: string;
-
         switch (error.code) {
           case error.PERMISSION_DENIED:
             errorMessage =
@@ -54,12 +60,33 @@ export function useGeolocation() {
           default:
             errorMessage = "An unknown error occurred.";
         }
+        // adding a fallback location incase of permision denied
+        const notify = () => toast.error(errorMessage, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+          });
+        if (error.code === error.PERMISSION_DENIED) {
+          notify();
+          setLocationData({
+            coordinates:fallbackcords,
+            error: null,
+            isLoading: false,
+          });
+        } else {
+          setLocationData({
+            coordinates: null,
+            error: errorMessage,
+            isLoading: false,
+          });
+        }
 
-        setLocationData({
-          coordinates: null,
-          error: errorMessage,
-          isLoading: false,
-        });
       },
       {
         enableHighAccuracy: true,
