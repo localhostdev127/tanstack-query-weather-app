@@ -1,3 +1,4 @@
+# this file is for building image locally
 # Stage 1: Build
 FROM node:20-alpine AS build
 
@@ -13,6 +14,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Pass build-time environment variables
+ARG API_KEY
+ENV VITE_OPENWEATHER_API_KEY=${API_KEY}
 
 
 # Build the app

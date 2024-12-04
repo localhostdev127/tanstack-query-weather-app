@@ -1,11 +1,8 @@
+# this file is for running image locally
 version: '3.8'
 
 services:
   klimate-app:
-    image: klimate-app:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: klimate-app
     ports:
       - "80:80" 
-    restart: always
