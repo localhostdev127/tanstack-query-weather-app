@@ -13,7 +13,8 @@ import { WeatherForecast } from "../components/weather-forecast";
 import { HourlyTemperature } from "../components/hourly-temprature";
 import WeatherSkeleton from "../components/loading-skeleton";
 import { FavoriteCities } from "@/components/favorite-cities";
-import { Helmet } from "react-helmet";
+import useDocumentTitle from "@/hooks/use-document-title";
+// import { Helmet } from "react-helmet";
 
 export default function WeatherDashboard() {
   const {
@@ -35,7 +36,9 @@ export default function WeatherDashboard() {
       locationQuery.refetch();
     }
   };
-
+  const locationName = locationQuery.data?.[0];
+  // change title 
+  useDocumentTitle(`KLIMATE - ${locationName?.name}`);
   if (locationLoading) {
     return <WeatherSkeleton />;
   }
@@ -72,7 +75,7 @@ export default function WeatherDashboard() {
     );
   }
 
-  const locationName = locationQuery.data?.[0];
+  
 
   if (weatherQuery.error || forecastQuery.error) {
     return (
@@ -96,9 +99,6 @@ export default function WeatherDashboard() {
 
   return (
     <div className="space-y-4">
-      <Helmet>
-        <title>{`KLIMATE - ${locationName?.name}`}</title>
-      </Helmet>
       <FavoriteCities />
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>

@@ -8,7 +8,8 @@ import { WeatherDetails } from "../components/weather-details";
 import { WeatherForecast } from "../components/weather-forecast";
 import WeatherSkeleton from "../components/loading-skeleton";
 import { FavoriteButton } from "@/components/favorite-button";
-import { Helmet } from "react-helmet";
+import useDocumentTitle from "@/hooks/use-document-title";
+// import { Helmet } from "react-helmet";
 export default function CityPage() {
   const [searchParams] = useSearchParams();
   const params = useParams();
@@ -19,6 +20,9 @@ export default function CityPage() {
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
 
+    // change title 
+    useDocumentTitle(`KLIMATE - ${params.cityName ? params.cityName:'your requested location'}`);
+    
   if (weatherQuery.error || forecastQuery.error) {
     return (
       <Alert variant="destructive">
@@ -36,7 +40,6 @@ export default function CityPage() {
 
   return (
     <div className="space-y-6">
-      <Helmet><title>{`KLIMATE - ${params.cityName ? params.cityName:'your requested location'}`}</title></Helmet>
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">
           {params.cityName}, {weatherQuery.data.sys.country}
