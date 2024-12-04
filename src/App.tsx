@@ -1,13 +1,20 @@
+import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "./components/ui/sonner";
-import { WeatherDashboard } from "./pages/weather-dashboard";
 import { Layout } from "./components/layout";
 import { ThemeProvider } from "./context/theme-provider";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CityPage } from "./pages/city-page";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Suspense } from "react";
+import LoadingSpinner from "./components/loading-spinner";
+
+
+// Lazy load the components
+const WeatherDashboard = React.lazy(() => import("./pages/weather-dashboard"));
+const CityPage = React.lazy(() => import("./pages/city-page"));
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -25,13 +32,15 @@ function App() {
       <BrowserRouter>
         <ThemeProvider defaultTheme="dark">
           <Layout>
-            <Routes>
-              <Route path="/" element={<WeatherDashboard />} />
-              <Route path="/city/:cityName" element={<CityPage />} />
-            </Routes>
+            <Suspense fallback={<LoadingSpinner/>}>
+              <Routes>
+                <Route path="/" element={<WeatherDashboard />} />
+                <Route path="/city/:cityName" element={<CityPage />} />
+              </Routes>
+            </Suspense>
           </Layout>
           <Toaster richColors />
-          <ToastContainer/>
+          <ToastContainer />
         </ThemeProvider>
       </BrowserRouter>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}

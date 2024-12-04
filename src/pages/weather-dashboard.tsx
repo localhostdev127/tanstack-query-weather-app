@@ -15,7 +15,7 @@ import WeatherSkeleton from "../components/loading-skeleton";
 import { FavoriteCities } from "@/components/favorite-cities";
 import { Helmet } from "react-helmet";
 
-export function WeatherDashboard() {
+export default function WeatherDashboard() {
   const {
     coordinates,
     error: locationError,
